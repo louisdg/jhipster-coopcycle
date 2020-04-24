@@ -1,0 +1,44 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="cooperative">
+            <h2><span jhiTranslate="coopcycleApp.cooperative.detail.title">Cooperative</span> {{ cooperative.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="coopcycleApp.cooperative.cooperativeId">Cooperative Id</span></dt>
+                <dd>
+                    <span>{{ cooperative.cooperativeId }}</span>
+                </dd>
+                <dt><span jhiTranslate="coopcycleApp.cooperative.name">Name</span></dt>
+                <dd>
+                    <span>{{ cooperative.name }}</span>
+                </dd>
+                <dt><span jhiTranslate="coopcycleApp.cooperative.area">Area</span></dt>
+                <dd>
+                    <span>{{ cooperative.area }}</span>
+                </dd>
+                <dt><span jhiTranslate="coopcycleApp.cooperative.restaurant">Restaurant</span></dt>
+                <dd>
+                    <span *ngFor="let restaurant of cooperative.restaurants; let last = last">
+                        <a [routerLink]="['/restaurant', restaurant?.id, 'view']">{{ restaurant.id }}</a>{{ last ? '' : ', ' }}
+                    </span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/cooperative', cooperative.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

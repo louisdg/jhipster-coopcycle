@@ -1,0 +1,81 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-basket-heading" jhiTranslate="coopcycleApp.basket.home.createOrEditLabel">Create or edit a Basket</h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="coopcycleApp.basket.basketId" for="field_basketId">Basket Id</label>
+                    <input type="number" class="form-control" name="basketId" id="field_basketId"
+                           formControlName="basketId"/>
+                    <div *ngIf="editForm.get('basketId')!.invalid && (editForm.get('basketId')!.dirty || editForm.get('basketId')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('basketId')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('basketId')?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="coopcycleApp.basket.basketState" for="field_basketState">Basket State</label>
+                    <select class="form-control" name="basketState" formControlName="basketState" id="field_basketState">
+                        <option value="NOTFINISHED">{{ 'coopcycleApp.BasketState.NOTFINISHED' | translate }}</option>
+                        <option value="VALIDATED">{{ 'coopcycleApp.BasketState.VALIDATED' | translate }}</option>
+                        <option value="PAID">{{ 'coopcycleApp.BasketState.PAID' | translate }}</option>
+                    </select>
+                    <div *ngIf="editForm.get('basketState')!.invalid && (editForm.get('basketState')!.dirty || editForm.get('basketState')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('basketState')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="coopcycleApp.basket.user" for="field_user">User</label>
+                    <select class="form-control" id="field_user" name="user" formControlName="user">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="userOption.id === editForm.get('user')!.value?.id ? editForm.get('user')!.value : userOption" *ngFor="let userOption of users; trackBy: trackById">{{ userOption.id }}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="coopcycleApp.basket.course" for="field_course">Course</label>
+                    <select class="form-control" id="field_course" name="course" formControlName="course">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="courseOption.id === editForm.get('course')!.value?.id ? editForm.get('course')!.value : courseOption" *ngFor="let courseOption of courses; trackBy: trackById">{{ courseOption.id }}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="coopcycleApp.basket.customer" for="field_customer">Customer</label>
+                    <select class="form-control" id="field_customer" name="customer" formControlName="customer">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="userOption.id === editForm.get('customer')!.value?.id ? editForm.get('customer')!.value : userOption" *ngFor="let userOption of users; trackBy: trackById">{{ userOption.id }}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

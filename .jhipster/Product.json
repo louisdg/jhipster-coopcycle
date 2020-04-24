@@ -1,0 +1,51 @@
+{
+    "name": "Product",
+    "fields": [
+        {
+            "fieldName": "price",
+            "fieldType": "BigDecimal",
+            "fieldValidateRules": [
+                "required",
+                "min"
+            ],
+            "fieldValidateRulesMin": "0"
+        },
+        {
+            "fieldName": "disponibility",
+            "fieldType": "Disponibility",
+            "fieldValues": "AVAILABLE,UNAVAILABLE"
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "basket",
+            "otherEntityRelationshipName": "product",
+            "relationshipName": "basket",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "restaurant",
+            "otherEntityRelationshipName": "product",
+            "relationshipName": "restaurant",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20200424194600",
+    "javadoc": "The Product entity.",
+    "entityTableName": "product",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

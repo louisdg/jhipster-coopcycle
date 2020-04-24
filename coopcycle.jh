@@ -1,0 +1,105 @@
+// =================================
+// Entities
+// =================================
+
+/**
+ * The User entity.
+ */
+entity User {
+	userId Long required
+	login String required
+	password String required
+}
+
+/**
+ * The Restaurant entity.
+ */
+entity Restaurant {
+      restaurantId Long required
+      name String required
+      description String
+}
+
+/**
+ * The Cooperative entity.
+ */
+entity Cooperative {
+	cooperativeId Long required
+	name String
+	area String
+}
+
+enum BasketState {
+    NOTFINISHED, VALIDATED, PAID
+}
+
+/**
+ * The Basket entity.
+ */
+entity Basket {
+    basketId Long required
+    basketState BasketState required
+}
+
+enum Disponibility {
+	AVAILABLE, UNAVAILABLE
+}
+
+/**
+ * The Product entity.
+ */
+entity Product {
+    price BigDecimal required min(0)
+    disponibility Disponibility
+    description String
+}
+
+enum PaymentMethod {
+    CB, BITCOIN, PAYPAL, IZLY
+}
+
+/**
+ * The Payment entity.
+ */
+entity Payment {
+    paymentMethod PaymentMethod required
+}
+
+enum CourseState {
+    	COMPLETED, PENDING, CANCELLED
+}
+
+/**
+ * The Course entity.
+ */
+entity Course {
+    state CourseState required
+    deliveryTime Instant required
+}
+
+entity Order {
+orderId Long required
+}
+
+// =================================
+// Relations
+// =================================
+
+relationship ManyToMany {
+Cooperative{restaurant} to Restaurant{cooperative}
+}
+
+relationship ManyToOne {
+	Product{basket} to Basket
+	Product{restaurant} to Restaurant
+	Basket{customer} to User
+	Course{restaurant} to Restaurant
+}
+
+relationship OneToOne {
+	Basket{user} to User{basket}
+Basket{course} to Course{basket}
+	
+}
+
+

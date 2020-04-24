@@ -1,0 +1,48 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="basket">
+            <h2><span jhiTranslate="coopcycleApp.basket.detail.title">Basket</span> {{ basket.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="coopcycleApp.basket.basketId">Basket Id</span></dt>
+                <dd>
+                    <span>{{ basket.basketId }}</span>
+                </dd>
+                <dt><span jhiTranslate="coopcycleApp.basket.basketState">Basket State</span></dt>
+                <dd>
+                    <span jhiTranslate="{{ 'coopcycleApp.BasketState.' + basket.basketState }}">{{ basket.basketState }}</span>
+                </dd>
+                <dt><span jhiTranslate="coopcycleApp.basket.user">User</span></dt>
+                <dd>
+                    {{ basket.user?.id }}
+                </dd>
+                <dt><span jhiTranslate="coopcycleApp.basket.course">Course</span></dt>
+                <dd>
+                    <div *ngIf="basket.course">
+                        <a [routerLink]="['/course', basket.course?.id, 'view']">{{ basket.course?.id }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="coopcycleApp.basket.customer">Customer</span></dt>
+                <dd>
+                    {{ basket.customer?.id }}
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/basket', basket.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
